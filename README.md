@@ -31,7 +31,7 @@
 
 ## 当前已知问题Konwn Issues
 
-1. 封面设计过于复杂，考虑格式要求，当前采用的方案：**Word填写基本信息-->生成并cover.pdf-->编译导入到项目或者直接使用PDF软件调整页面（推荐）**.此处强烈推荐PDF软件`PDF-XChange Editor Plus`,下载地址为[https://www.ghxi.com/pdfxchangeeditorplus.html](https://www.ghxi.com/pdfxchangeeditorplus.html),使用软件编辑PDF，修改页面等较为方便.
+1. 封面设计过于复杂，考虑格式要求，当前采用的方案：**Word填写基本信息-->生成并cover.pdf-->编译导入到项目或者直接使用PDF软件调整页面（推荐）**。另限于内部资料，不会提供Word模板及封面PDF，请自行生成。此外，强烈推荐PDF软件`PDF-XChange Editor Plus`,下载地址为[https://www.ghxi.com/pdfxchangeeditorplus.html](https://www.ghxi.com/pdfxchangeeditorplus.html),使用软件编辑PDF，修改页面等较为方便。
 1. 文档提供的模板`参考文献`部分本身并不能看出具体的格式要求，因此按照<国标GB/T7714-2015信息与文献参考文献著录规则进行设置.此外，模板文件参考文献条目为首行缩进，略难看，不如悬挂缩进（默认设置）漂亮.可以修改注释内容进行调整.
 1. 字体问题：overleaf官方基于Linux系统搭建，部分具有版权的字体（宋体、仿宋等）无法使用，建议使用overleaf编写，最终成稿使用window进行本地编译.具体参见`./docs/ctex.pdf`Page7字体相关章节.
 2. 目前不太清楚单位的写法，如 `1m`还是`1~m`是否有空格.规范可能是分开，但是连写的也不少.

@@ -16,6 +16,13 @@
 \fi
 
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{ctexbook}}
+\newif\ifphd
+\DeclareOption{phd}{\phdtrue}
+\DeclareOption{master}{\phdfalse}
+\ExecuteOptions{master} % 默认选项为硕士
+\ProcessOptions\relax
+
+
 \ProcessOptions\relax
 % 正文字号为小四
 \LoadClass[a4paper,UTF8,zihao=-4,scheme=chinese,fontset=windows]{ctexbook}
@@ -102,7 +109,7 @@
   \fancyhf{}
   \renewcommand{\headrulewidth}{0pt} % 去掉原始页眉单线
   \renewcommand{\footrulewidth}{1pt} % 页脚下单实线
-  \fancyhead[C]{\songti \zihao{5} \selectfont 硕士学位论文\vspace{3pt}\\ % 在文字和双线之间添加一些间距+换行
+  \fancyhead[C]{\songti \zihao{5} \selectfont {\ifphd 博士学位论文 \else 硕士学位论文 \fi}\vspace{3pt}\\ % 在文字和双线之间添加一些间距+换行
     \doubleline % 添加双线
   }%
   \fancyfoot[C,C]{\songti\zihao{5} 第~\rmfamily{\thepage}~页}
