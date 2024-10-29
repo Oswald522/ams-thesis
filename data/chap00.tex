@@ -67,11 +67,13 @@
 生平只用三线表，因此更多表格使用请自定义。
 
 \par 表应具有自明性。为使表格简洁易读，尽可能采用三线表，如表~\ref{tab:three-line}~。
-三条线可以使用 \pkg{booktabs} 宏包提供的命令生成。可以调整表格的列间距\begin{verbatim}\setlength{\tabcolsep}{10mm}\end{verbatim}或者行距进行优化。
+三条线可以使用 \pkg{booktabs} 宏包提供的命令生成。可以调整表格的列间距
+\begin{verbatim}\setlength{\tabcolsep}{10mm}
+\end{verbatim}或者行距进行优化。
 \begin{table}[htb]
   \centering
   \caption{三线表示例}
-    \setlength{\tabcolsep}{8mm}     % 调节表格列间距,值不需要特别大5~15mm之间即可
+  \setlength{\tabcolsep}{8mm}     % 调节表格列间距,值不需要特别大5~15mm之间即可
   \begin{tabular}{ll}
     \toprule
     文件名             & 描述               \\
@@ -134,20 +136,20 @@
 
 \section{算法部分}
 \begin{algorithm}[htb]
-    \caption{How to write algorithms}
-    \label{algo:algo2}
-    \KwData{this text}
-    \KwResult{how to write algorithm with \LaTeX2e }
-    initialization\;
-    \While{not at end of this document}{
-        read current\;
-        \eIf{understand}{
-            go to next section\;
-            current section becomes this one\;
-        }{
-            go back to the beginning of current section\;
-        }
+  \caption{How to write algorithms}
+  \label{algo:algo2}
+  \KwData{this text}
+  \KwResult{how to write algorithm with \LaTeX2e }
+  initialization\;
+  \While{not at end of this document}{
+    read current\;
+    \eIf{understand}{
+      go to next section\;
+      current section becomes this one\;
+    }{
+      go back to the beginning of current section\;
     }
+  }
 \end{algorithm}
 
 \chapter{论文主要部分的写法}
@@ -200,7 +202,7 @@
 5、论文结构安排。
 \begin{itemize}
   \item 问题的提出：要清晰地阐述所要研究的问题“是什么”。
-        \footnote{选题时切记要有“问题意识”，不要选不是问题的问题来研究。}
+    \footnote{选题时切记要有“问题意识”，不要选不是问题的问题来研究。}
   \item 选题背景及意义：论述清楚为什么选择这个题目来研究，即阐述该研究对学科发展的贡献、对国计民生的理论与现实意义等。
   \item 文献综述：对本研究主题范围内的文献进行详尽的综合述评，“述”的同时一定要有“评”，指出现有研究状态，仍存在哪些尚待解决的问题，讲出自己的研究有哪些探索性内容。
   \item 研究方法：讲清论文所使用的学术研究方法。

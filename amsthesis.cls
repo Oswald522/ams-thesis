@@ -11,8 +11,8 @@
 \RequirePackage{ifxetex}
 \ifxetex
 \else
-  \ClassError{amsthesis}{You must have to use the 'xelatex' \MessageBreak Please choose `xelatex'}{%
-    Only choose `xelatex', no `pdflatex' or `latex' and so on.}
+\ClassError{amsthesis}{You must have to use the 'xelatex', option path is 'Menu-->Compiler' \MessageBreak Please choose `xelatex'}{%
+Only choose `xelatex', no `pdflatex' or `latex' and so on.}
 \fi
 
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{ctexbook}}
@@ -53,7 +53,7 @@
 \RequirePackage{mathrsfs}       % 提供mathscr: 花体
 \RequirePackage{amssymb}        % ams数学符号
 \RequirePackage{booktabs}       % 表格，横的粗线；\specialrule{1pt}{0pt}{0pt}
-
+\RequirePackage{ifplatform}     % 识别操作系统平台
 % % ===========================================
 % % 字体设置
 % % ===========================================
@@ -64,17 +64,16 @@
 \newcommand{\rmnum}[1]{\romannumeral #1}  %罗马文字
 \newcommand{\Rmnum}[1]{\expandafter\@slowromancap\romannumeral #1@}  %罗马文字
 % \setstretch{1.25}  % 自定义行距倍数
-% ***Windows版本***
-%  window系统下主要使用window系统提供的字体：宋体、仿宋、黑体等。
-% \setCJKfamilyfont{zhsong}[Path=fonts/,AutoFakeBold = {2.17}]{simsun.ttc}
-% \setCJKfamilyfont{zhhei}[Path=fonts/]{simhei.ttf}
-% \renewcommand*{\songti}{\CJKfamily{zhsong}}  %中易宋体
-% \renewcommand*{\heiti}{\CJKfamily{zhhei}}  %中易黑体
-% Overleaf 版本,中文使用Fandol 字库
+% 不同操作系统下字体逻辑
+\ifwindows
+% window系统下主要使用window系统提供的字体：宋体、仿宋、黑体等。
 \setCJKfamilyfont{zhsong}{SimSun}[AutoFakeBold = {1.5}]
-% \setCJKfamilyfont{zhhei}{SimHei}[AutoFakeBold = 1]%
 \renewcommand{\songti}{\CJKfamily{zhsong}}  %中易宋体
 \renewcommand{\heiti}{\CJKfamily{zhhei}}  %中易黑体
+\else
+% Overleaf 版本***,中文使用Fandol 字库，上述内容取消
+% \usepackage{anotherpackage} % Linux/Overleaf 下使用的包
+\fi
 
 % ===========================================
 % 纸张和页面
@@ -84,7 +83,7 @@
 % 页面设置：上、下 2.5 cm，左、右 3.17 cm，
 % 5号字高3.70mm
 
-% 间距存在问题
+% 间距存在问题，手动测量设置出的结果
 \geometry{
   paper      = a4paper,
   top    =  3.1cm,
@@ -150,9 +149,9 @@
   %\cleardoublepage
   \clearpage  % or \cleardoublepage
   \if@twoside
-    \ifnumodd{\c@page}
-    {\afterpage{\thispagestyle{empty}}}
-    {\thispagestyle{empty}}
+  \ifnumodd{\c@page}
+  {\afterpage{\thispagestyle{empty}}}
+  {\thispagestyle{empty}}
   \fi
 }
 
@@ -265,7 +264,7 @@
     % fixskip=true,
     lofskip=0pt,
     lotskip=0pt,
-   },
+  },
   section = {
     numberformat = \rmfamily\zihao{4}\selectfont,
     titleformat=\songti\zihao{4}\selectfont,
@@ -273,23 +272,23 @@
     beforeskip  = 0.5\baselineskip,
     afterskip   = 0.5\baselineskip,
     % fixskip=true,
-   },
+  },
   subsection = {
-      numberformat = \rmfamily\zihao{-4}\selectfont,
-      titleformat= \heiti\zihao{-4}\selectfont,
-      aftername  = \hspace{0.5\ccwd},
-      beforeskip = 0.5\baselineskip,
-      afterskip  = 0.5\baselineskip,
-      indent=\parindent,
-    },
+    numberformat = \rmfamily\zihao{-4}\selectfont,
+    titleformat= \heiti\zihao{-4}\selectfont,
+    aftername  = \hspace{0.5\ccwd},
+    beforeskip = 0.5\baselineskip,
+    afterskip  = 0.5\baselineskip,
+    indent=\parindent,
+  },
   subsubsection={
-      numberformat = \rmfamily\zihao{-4}\selectfont,
-      titleformat= \heiti\zihao{-4}\selectfont,
-      aftername  = \hspace{0.5\ccwd},
-      beforeskip = 0.5\baselineskip,
-      afterskip  = 0.5\baselineskip,
-      indent=\parindent,
-    }
+    numberformat = \rmfamily\zihao{-4}\selectfont,
+    titleformat= \heiti\zihao{-4}\selectfont,
+    aftername  = \hspace{0.5\ccwd},
+    beforeskip = 0.5\baselineskip,
+    afterskip  = 0.5\baselineskip,
+    indent=\parindent,
+  }
 }
 
 
@@ -346,48 +345,50 @@
 \def\bibfont{\rmfamily\zihao{-4}\selectfont}   %
 \defbibenvironment{bibliography}
 %{\begin{enumerate}[itemindent=4\ccwd]      %首行缩进
-{\begin{enumerate}[itemindent=0pt,leftmargin=2.5\ccwd]   % 悬挂缩进，我认为比首行缩进要干净整齐很多。
-  \setlength{\baselineskip}{16bp}  % 修改参考文献的行距等
-  {}  % 在环境开始时设置行距
-  {   \setlength{\leftmargin}{0pt}%
-    \setlength{
+{
+  \begin{enumerate}[itemindent=0pt,leftmargin=2.5\ccwd]   % 悬挂缩进，我认为比首行缩进要干净整齐很多。
+      \setlength{\baselineskip}{16bp}  % 修改参考文献的行距等
+      {}  % 在环境开始时设置行距
+      {   \setlength{\leftmargin}{0pt}%
+        \setlength{
       \itemindent}{\bibhang}%
-    \setlength{
+        \setlength{
       \itemsep}{\bibitemsep}%
     \setlength{\parsep}{\bibparsep}}}
-{\endenumerate}
-{\item}
+    {\endenumerate}
+    {
+  \item}
 
 
 
 
-% ============================
-% 提供一些常用命令
-% ============================
-\DeclareRobustCommand\cmd[1]{\texttt{#1}}
-\DeclareRobustCommand\cs[1]{\texttt{\char`\\#1}}
-\DeclareRobustCommand\file{\nolinkurl}
-\DeclareRobustCommand\env{\textsf}
-\DeclareRobustCommand\pkg{\textsf}
-\DeclareRobustCommand\cls{\textsf}
+    % ============================
+    % 提供一些常用命令
+    % ============================
+    \DeclareRobustCommand\cmd[1]{\texttt{#1}}
+    \DeclareRobustCommand\cs[1]{\texttt{\char`\\#1}}
+    \DeclareRobustCommand\file{\nolinkurl}
+    \DeclareRobustCommand\env{\textsf}
+    \DeclareRobustCommand\pkg{\textsf}
+    \DeclareRobustCommand\cls{\textsf}
 
 
 
-% ============================
-%相关环境设置
-% ============================
-\theoremstyle{plain}
-\theorembodyfont{\songti\rmfamily}
-\theoremheaderfont{\heiti\rmfamily}
-\newtheorem{definition}{\heiti 定义}[chapter]
-\newtheorem{property}{\heiti 性质}[chapter]
-\newtheorem{example}{\heiti 例}[chapter]
-\newtheorem{algo}{\heiti 算法}[chapter]
-\newtheorem{theorem}{\heiti 定理}[chapter]
-\newtheorem{axiom}{\heiti 公理}[chapter]
-\newtheorem{proposition}{\heiti 命题}[chapter]
-\newtheorem{lemma}{\heiti 引理}[chapter]
-\newtheorem{corollary}{\heiti 推论}[chapter]
-\newtheorem{remark}{\heiti 注解}[chapter]
-\newenvironment{proof}{\noindent{\heiti 证明：}}{\hfill $ \square $ \vskip 4mm}
-\theoremsymbol{$\square$}
+    % ============================
+    %相关环境设置
+    % ============================
+    \theoremstyle{plain}
+    \theorembodyfont{\songti\rmfamily}
+    \theoremheaderfont{\heiti\rmfamily}
+    \newtheorem{definition}{\heiti 定义}[chapter]
+    \newtheorem{property}{\heiti 性质}[chapter]
+    \newtheorem{example}{\heiti 例}[chapter]
+    \newtheorem{algo}{\heiti 算法}[chapter]
+    \newtheorem{theorem}{\heiti 定理}[chapter]
+    \newtheorem{axiom}{\heiti 公理}[chapter]
+    \newtheorem{proposition}{\heiti 命题}[chapter]
+    \newtheorem{lemma}{\heiti 引理}[chapter]
+    \newtheorem{corollary}{\heiti 推论}[chapter]
+    \newtheorem{remark}{\heiti 注解}[chapter]
+    \newenvironment{proof}{\noindent{\heiti 证明：}}{\hfill $ \square $ \vskip 4mm}
+    \theoremsymbol{$\square$}
